@@ -139,7 +139,7 @@ def vigenere_cipher(message, key):
     new_message = ""
     
     if message == " " or key == " ":
-        return print(message)
+        return message
     else:
         
         for i in range(message_len):
