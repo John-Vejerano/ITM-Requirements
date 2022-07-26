@@ -102,7 +102,7 @@ def tic_tac_toe(board):
         winner +="O"
     
     if winner == "":
-        winner += "no winner"
+        winner += "NO WINNER"
         
     return winner
 
