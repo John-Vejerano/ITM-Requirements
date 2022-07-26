@@ -105,8 +105,6 @@ def shift_by_letter(letter, letter_shift):
         result += chr(ord(letter) + shift)
     return result
 
-
-
 def vigenere_cipher(message, key):
     '''Vigenere Cipher. 
     15 points.
@@ -208,6 +206,7 @@ def scytale_cipher(message, shift):
         new_message += message[value]
     return new_message
 
+
 def scytale_decipher(message, shift):
     '''Scytale De-cipher.
     15 points.
@@ -240,5 +239,4 @@ def scytale_decipher(message, shift):
         for j in range(len(zip_list[0])):
             char += message[zip_list[i][j]]
     return char
-
 
