@@ -119,7 +119,7 @@ class ConnectorDB:
         self.expenses_records.pack(fill=BOTH, expand=1)
 
 #Button Commands
-
+#erases all the text in the entry widgets
         def Reset():
             self.entExpense_ID.delete(0, END)
             self.entExpense_Type.delete(0, END)
@@ -128,11 +128,13 @@ class ConnectorDB:
             self.entMonth.delete(0, END)
             self.entDay.delete(0, END)
             self.entYear.delete(0, END)
+#exits the window
         def Exit():
             Exit = tkinter.messagebox.askyesno("Sample Business GUI","Confirm Exit")
             if Exit > 0:
                 root.destroy()
                 return
+#allows the user to add items to their database. The connection details need to be changed
         def addData():
             if Expense_ID.get() =="" or Expense_Type.get() =="" or Expense_Quantity.get() =="" or Expense_Price.get() =="" or Day.get() == ""or Month.get() == ""or Year.get() == "":
                 tkinter.messagebox.askyesno("Sample Business GUI", "Enter Correct Details")
@@ -155,9 +157,11 @@ class ConnectorDB:
                 sqlCon.close()
                 tkinter.messagebox.showinfo("Sample Business GUI", "Record Entered Successfully")
                 Reset()
+#Allows the treeview to clear all its data
         def clear_all():
             for item in self.expenses_records.get_children():
                 self.expenses_records.delete(item)
+#allows the user to see all the items in their database
         def DisplayData():
                 clear_all()
                 sqlCon = pymysql.connect(host = "localhost", user = "sampleuser", password = "password", database = "newbusiness")
@@ -170,7 +174,7 @@ class ConnectorDB:
                         self.expenses_records.insert('', END, values = row)
                     sqlCon.commit()
                 sqlCon.close()
-
+#allows the user to see their selected item in the treeview in their entry widgets
         def ExpenseInfo(ev):
             viewInfo = self.expenses_records.focus()
             learnerData = self.expenses_records.item(viewInfo)
@@ -179,10 +183,7 @@ class ConnectorDB:
             Expense_Type.set(row[1]),
             Expense_Price.set(row[2])
             Expense_Quantity.set(row[3])
-
-        
-
-
+#allows the user to update a chosen item in their database  
         def Update():
             try:
                 sqlCon = pymysql.connect(host = "localhost", user = "sampleuser", password = "password", database = "newbusiness")
@@ -196,7 +197,7 @@ class ConnectorDB:
                 tkinter.messagebox.askyesno("Sample Business GUI", "Enter Correct Details")
                 Reset()
             
-               
+#allows the user to delete a chosen item in their database                 
         def DeleteDB():
             try:
                 if Expense_ID.get() =="":
@@ -216,7 +217,7 @@ class ConnectorDB:
                 Reset()
 
         
-        
+#allows the user to search a chosen item in their database        
         def SearchDB():
             try:
                 sqlCon = pymysql.connect(host = "localhost", user = "sampleuser", password = "password", database = "newbusiness")
@@ -238,11 +239,11 @@ class ConnectorDB:
             except:   
                 tkinter.messagebox.showinfo("Sample Business GUI", "No Such Record Found")
                 Reset()
-
+#allows the user to transfer to the Products window    
         def Products():
             os.startfile("Products.exe")
             root.destroy()
-        
+  #allows the user to transfer to the Customers window          
         def Customers():
             os.startfile("Customers.exe")
             root.destroy()

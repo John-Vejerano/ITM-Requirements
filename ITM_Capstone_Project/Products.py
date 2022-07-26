@@ -54,21 +54,22 @@ class ConnectorDB:
 
         #========================Functions Declaration=========================================
 
+#exits the window
         def iExit():
             iExit = tkinter.messagebox.askyesno("Sample Business GUI", "Confirm if you want to exit")
             if iExit > 0:
                 root.destroy()
                 return
-
+#resets the text on the entry widgets
         def Reset():
             self.entProd_ID.delete(0, END)
             self.entProd_Name.delete(0, END)
             self.entProd_Price.delete(0, END)
-
+#clears the items on the treeview widget
         def clear_all():
             for item in self.product_records.get_children():
                 self.product_records.delete(item)
-
+#adds new data to the database
         def addData():
             if Prod_ID.get() =="" or Prod_Name.get() =="" or Prod_Price.get() =="":
                 tkinter.messagebox.askyesno("Sample Business GUI", "Enter Correct Details")
@@ -84,7 +85,7 @@ class ConnectorDB:
                 sqlCon.commit()
                 sqlCon.close()
                 tkinter.messagebox.showinfo("Sample Business GUI", "Record Entered Successfully")
-
+#displays the data of the database
         def DisplayData():
                 clear_all()
                 sqlCon = pymysql.connect(host = "localhost", user = "sampleuser", password = "password", database = "newbusiness")
@@ -97,7 +98,7 @@ class ConnectorDB:
                         self.product_records.insert('', END, values = row)
                     sqlCon.commit()
                 sqlCon.close()
-
+#allows the user to see their selected item in the treeview in their entry widgets
         def ProductInfo(ev):
             viewInfo = self.product_records.focus()
             learnerData = self.product_records.item(viewInfo)
@@ -105,7 +106,7 @@ class ConnectorDB:
             Prod_ID.set(row[0]),
             Prod_Name.set(row[1]),
             Prod_Price.set(row[2])
-
+#Updates an item in the database
         def Update():
             try:
                 sqlCon = pymysql.connect(host = "localhost", user = "sampleuser", password = "password", database = "newbusiness")
@@ -123,7 +124,7 @@ class ConnectorDB:
             except:
                 tkinter.messagebox.showinfo("Sample Business GUI", "No Such Record Found")
                 Reset()
-
+#deletes an item in the database
         def DeleteDB():
             try:
                 if Prod_ID.get() =="":
@@ -143,7 +144,7 @@ class ConnectorDB:
                 Reset()
 
         
-        
+  #searches for an item in the database      
         def SearchDB():
             try:
                 if Prod_ID.get() =="":
@@ -165,10 +166,11 @@ class ConnectorDB:
             except:   
                 tkinter.messagebox.showinfo("Sample Business GUI", "No Such Record Found")
                 Reset()
-
+#transfers to the customers window
         def Customers():
             os.startfile("Customers.exe")
             root.destroy()
+#transfers to the expenses window
         def Expenses():
             os.startfile("Expenses.exe")
             root.destroy()

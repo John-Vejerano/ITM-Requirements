@@ -154,7 +154,7 @@ class ConnectorDB:
 
 
  #button functions
-
+#Allows the entry widgets to reset
         def Reset():
             self.entTransaction_ID.delete(0, END)
             self.entCustomer_FName.delete(0, END)
@@ -166,15 +166,17 @@ class ConnectorDB:
             self.entDay.delete(0, END)
             self.entYear.delete(0, END)
             self.entQuantity.delete(0, END)
-
+#Allows the user to exit the window
         def Exit():
             Exit = tkinter.messagebox.askyesno("Sample Business GUI", "Confirm exit")
             if Exit > 0:
                 root.destroy()
                 return
+#Allows the treeview to clear all its data
         def clear_all():
             for item in self.transaction_records.get_children():
                 self.transaction_records.delete(item)
+#allows the user to add items to their database. The connection details need to be changed
         def addData():
             try:
         
@@ -192,6 +194,7 @@ class ConnectorDB:
             except:
                 tkinter.messagebox.askyesno("Sample Business GUI", "Enter Correct Details")
                 Reset()
+#allows the user to see all the items in their database
         def DisplayData():
                 clear_all()
                 sqlCon = pymysql.connect(host = "localhost", user = "sampleuser", password = "password", database = "newbusiness")
@@ -204,7 +207,7 @@ class ConnectorDB:
                         self.transaction_records.insert('', END, values = row)
                     sqlCon.commit()
                 sqlCon.close()
-
+#allows the user to delete a chosen item in their database
         def Delete():
             try:
         
@@ -218,7 +221,7 @@ class ConnectorDB:
             except:
                 tkinter.messagebox.showinfo("Sample Business GUI", "No Such Record Found")
                 Reset()
-
+#allows the user to update a chosen item in their database
         def Update():
             try:
                 if Transaction_ID.get() =="":
@@ -234,6 +237,7 @@ class ConnectorDB:
             except:
                 tkinter.messagebox.showinfo("Sample Business GUI", "No Such Record Found")
                 Reset()
+#allows the user to search a chosen item in their database
         def SearchDB():
             try:
                 sqlCon = pymysql.connect(host = "localhost", user = "sampleuser", password = "password", database = "newbusiness")
@@ -257,6 +261,7 @@ class ConnectorDB:
                 tkinter.messagebox.showinfo("Sample Business GUI", "No Such Record Found")
                 Reset()
             sqlCon.close()
+#allows the user to see their selected item in the treeview in their entry widgets
         def TransactionInfo(ev):
             viewInfo = self.transaction_records.focus()
             learnerData = self.transaction_records.item(viewInfo)
@@ -268,7 +273,7 @@ class ConnectorDB:
             Cell_Num.set(row[4]),
             Order_Type.set(row[5])
             Quantity.set(row[6])
-
+#allows the user to see the price and name of a specific product id
         def Cost():
             try:
                 sqlCon = pymysql.connect(host = "localhost", user = "sampleuser", password = "password", database = "newbusiness")
@@ -280,11 +285,12 @@ class ConnectorDB:
             except:
                 tkinter.messagebox.showinfo("Sample Business GUI", "No Such Record Found")
                 Reset()
-
+#allows the user to transfer to the Expenses window
         def Expenses():
             os.startfile("Expenses.exe")
             root.destroy()
-            
+
+#allows the user to transfer to the Products window        
         def Products():
             os.startfile("Products.exe")
             root.destroy()
@@ -296,7 +302,7 @@ class ConnectorDB:
 
 
 
-#button widgets
+#button widgets for the commands
 
         self.btnAdd = Button(LeftFrame2, font = ('times new roman', 16, 'bold'), text = "Add", bd = 1, pady = 1, padx = 10, width = 8, height = 2,bg = "#CEE5D0",command = addData).grid(row = 1, column = 0, padx = 1)
         self.btnDelete = Button(LeftFrame2, font = ('times new roman', 16, 'bold'), text = "Delete", bd = 1, pady = 1, padx = 10, width = 8, height = 2,bg = "#CEE5D0",command=Delete).grid(row = 2, column = 0, padx = 1)
